@@ -18,16 +18,35 @@ def criaClassificacao(animal):
     headers = {'User-Agent': 'PostmanRuntime/7.26.8'}
     resp = reqs.get('https://a-z-animals.com/animals/' + animal, headers=headers) 
     resp.raise_for_status()
-    c1 = findall(r'Aardvark Scientific Classification.*Aardvark Conservation Status<\/h2', resp.text)
-    c2 = findall(r'([\sA-Za-z]*)<\/dt.*?([\sA-Za-z]*)<\/dd', c1[0])
-    for key, value in c2:
+    class1 = findall(r'Aardvark Scientific Classification.*Aardvark Conservation Status<\/h2', resp.text)
+    class2 = findall(r'([\sA-Za-z]*)<\/dt.*?([\sA-Za-z]*)<\/dd', class1[0])
+
+    facts1 = findall(r'Aardvark Facts.*Aardvark Physical Characteristics', resp.text)
+    facts2 = findall(r'([\sA-Za-z()]*)<\/dt.*?([A-Za-z\s,!?0-9]*)<\/[a-z]*>', facts1[0])
+
+    carac1 = findall(r'Aardvark Physical Characteristics.*Aardvark Images', resp.text)
+    color = findall(r'([A-Za-z\s,!?0-9]*)<\/li]*>', carac1[0])
+    carac2 = findall(r'([\sA-Za-z()]*)<\/dt.*?([A-Za-z\s,!?0-9\-().]*)<\/[a-z]*>', carac1[0])[1:]
+
+    location = findall(r'Aardvark Locations.*Aardvark Locations', resp.text)
+    location2 = findall(r'([A-Za-z ]*)<\/a', location[0])
+
+    for c in color:
+        carac2.append(('Colour', c))
+
+    print(carac2)
+
+    
+    for key, value in class2:
         if key != "Scientific Name":
             s = f""":{animal.capitalize()} :has{key.replace(" ", "")} :{value.replace(" ", "_")};"""
-            print(s)
+            #print(s)
         else:
             s = f""":{animal.capitalize()} :{key.replace(" ", "").lower()} '{value.replace(" ", "_")}';"""
-            print(s)
-    return c2
+            #print(s)
+
+
+    return class2
 
 criaClassificacao("aardvark")
 """
