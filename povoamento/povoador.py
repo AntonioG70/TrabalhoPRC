@@ -19,17 +19,20 @@ def criaClassificacao(animal):
     resp = reqs.get('https://a-z-animals.com/animals/' + animal, headers=headers) 
     resp.raise_for_status()
     animal = animal.replace("-", "")
-    class1 = findall(animal.capitalize() + r' Scientific Classification.*' + animal.capitalize() +  r' Conservation Status<\/h2', resp.text)
+    
+    class1 = findall(animal + r' Scientific Classification.*' + animal +  r' Conservation Status<\/h2', resp.text)
     class2 = findall(r'([\sA-Za-z]*)<\/dt.*?([\sA-Za-z]*)<\/dd', class1[0])
+    print(class2)
 
-    facts1 = findall(animal.capitalize() + r' Facts.*' + animal.capitalize() + r' Physical Characteristics', resp.text)
+    facts1 = findall(animal + r' Facts.*' + animal + r' Physical Characteristics', resp.text)
     facts2 = findall(r'([\sA-Za-z()]*)<\/dt.*?([A-Za-z\s,!?0-9]*)<\/[a-z]*>', facts1[0])
+    print(facts2)
 
-    carac1 = findall(animal.capitalize() + r' Physical Characteristics.*' + animal.capitalize() +  r' Images', resp.text)
+    carac1 = findall(animal + r' Physical Characteristics.*' + animal +  r' Images', resp.text)
     color = findall(r'([A-Za-z\s,!?0-9]*)<\/li]*>', carac1[0])
     carac2 = findall(r'([\sA-Za-z()]*)<\/dt.*?([A-Za-z\s,!?0-9\-().]*)<\/[a-z]*>', carac1[0])[1:]
 
-    location = findall(animal.capitalize() + r' Locations.*' + animal.capitalize() + r' Locations', resp.text)
+    location = findall(animal + r' Locations.*' + animal + r' Locations', resp.text)
     location2 = findall(r'([A-Za-z -]*)<\/a', location[0])
     print(location2)
     for c in color:
@@ -48,8 +51,8 @@ def criaClassificacao(animal):
 
 
     return class2
-get_animal_tipo("insects")
-#criaClassificacao("bumble-bee")
+#print(get_animal_tipo("mammals"))
+criaClassificacao("Bumble-bee")
 """
 for t in types:
     a = get_pag_tipo(t)
