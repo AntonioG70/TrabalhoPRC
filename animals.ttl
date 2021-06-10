@@ -9,11 +9,136 @@
 <http://www.semanticweb.org/antóniocarvalho/ontologies/animals> rdf:type owl:Ontology .
 
 #################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#animalLives
+:animalLives rdf:type owl:ObjectProperty ;
+             owl:inverseOf :livesIn .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#hasAnimal
+:hasAnimal rdf:type owl:ObjectProperty ;
+           owl:inverseOf :hasClassification .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#hasClass
+:hasClass rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :hasClassification ;
+          rdfs:domain :Animal .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#hasClasse
+:hasClasse rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :hasClassification ;
+           rdfs:domain :Animal ;
+           rdfs:range :Classe .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#hasClassification
+:hasClassification rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#hasFamily
+:hasFamily rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :hasClassification ;
+           rdfs:domain :Animal ;
+           rdfs:range :Family .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#hasGenus
+:hasGenus rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :hasClassification ;
+          rdfs:domain :Animal ;
+          rdfs:range :Genus .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#hasKingdom
+:hasKingdom rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :hasClassification ;
+            rdfs:domain :Animal ;
+            rdfs:range :Kingdom .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#hasOrder
+:hasOrder rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :hasClassification ;
+          rdfs:domain :Animal ;
+          rdfs:range :Order .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#hasPhylum
+:hasPhylum rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :hasClassification ;
+           rdfs:domain :Animal ;
+           rdfs:range :Phylum .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#hasPredator
+:hasPredator rdf:type owl:ObjectProperty ;
+             owl:inverseOf :hasPrey .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#hasPrey
+:hasPrey rdf:type owl:ObjectProperty ;
+         rdfs:domain :Animal ;
+         rdfs:range :Animal .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#livesIn
+:livesIn rdf:type owl:ObjectProperty ;
+         rdfs:domain :Animal ;
+         rdfs:range :Location .
+
+
+#################################################################
 #    Data properties
 #################################################################
 
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#colour
+:colour rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#diet
+:diet rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#fact
+:fact rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#gestationPeriod
+:gestationPeriod rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#habitat
+:habitat rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#length
+:length rdf:type owl:DatatypeProperty ;
+        rdfs:range xsd:decimal .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#lifeSpan
+:lifeSpan rdf:type owl:DatatypeProperty .
+
+
 ###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#scientificname
 :scientificname rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#skinType
+:skinType rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#weight
+:weight rdf:type owl:DatatypeProperty ;
+        rdfs:range xsd:decimal .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#wingSpan
+:wingSpan rdf:type owl:DatatypeProperty .
 
 
 #################################################################
@@ -34,8 +159,8 @@
       rdfs:subClassOf :Animal .
 
 
-###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#Class
-:Class rdf:type owl:Class .
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#Classe
+:Classe rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#Family
@@ -65,6 +190,10 @@
 :Kingdom rdf:type owl:Class .
 
 
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#Location
+:Location rdf:type owl:Class .
+
+
 ###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#Mammal
 :Mammal rdf:type owl:Class ;
         rdfs:subClassOf :Animal .
@@ -81,6 +210,60 @@
 ###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#Reptile
 :Reptile rdf:type owl:Class ;
          rdfs:subClassOf :Animal .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#Africa
+:Africa rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#Animalia
+:Animalia rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#Arthropoda
+:Arthropoda rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#Brachyura
+:Brachyura rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#Crab
+:Crab rdf:type owl:NamedIndividual ,
+               :Invertebrate ;
+      :hasClass :Malacostraca ;
+      :hasFamily :Brachyura ;
+      :hasKingdom :Animalia ;
+      :hasOrder :Decapoda ;
+      :hasPhylum :Arthropoda ;
+      :hasPrey :Shrimp ;
+      :livesIn :Africa ;
+      :colour "Blue" ,
+              "Brown" ,
+              "Orange" ,
+              "Red" ;
+      :diet "Carnivore" ;
+      :habitat "Coral reefs and coastline" ;
+      :length 0.2005 ;
+      :scientificname "Brachyura" ;
+      :skinType "Shell" ;
+      :weight 1.05 .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#Decapoda
+:Decapoda rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#Malacostraca
+:Malacostraca rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#Shrimp
+:Shrimp rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
