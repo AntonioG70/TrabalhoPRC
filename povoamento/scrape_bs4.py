@@ -62,7 +62,13 @@ links = []
 animals = {}
 
 for t in types:
-    links += get_animal_links(t)
+    type_links = get_animal_links(t)
+    links += type_links
+    for l in type_links:
+        tipo = t.capitalize()[:-1]
+        if tipo == 'Fis':
+            tipo = 'Fish'
+        animals[l] = {'type': tipo}
 
 print("DONE LINKS (" + str(len(links)) + ")")
 
@@ -70,7 +76,20 @@ for link in links:
     print(link)
     animal = get_animal(link)
     if animal:
+        animal['type'] = animals[link]['type']
         animals[link] = animal
+
+for animal in animals.values():
+    if 'Prey' in animal.keys():
+        preys = animal['Prey'].replace(' ','').split(',')
+        preys = list(map(lambda x: x[:-1].lower(), preys))
+        preys = list(filter(lambda p: 'https://a-z-animals.com/animals/'+ p +'/' in animals.keys(), preys))
+        if len(preys) > 0:
+            animal['Prey'] = preys
+        else:
+            del animal['Prey']
+
+
 
 print(animals)
 

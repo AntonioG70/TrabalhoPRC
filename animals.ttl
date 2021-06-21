@@ -110,8 +110,7 @@
 
 
 ###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#length
-:length rdf:type owl:DatatypeProperty ;
-        rdfs:range xsd:decimal .
+:length rdf:type owl:DatatypeProperty .
 
 
 ###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#lifeSpan
@@ -127,8 +126,7 @@
 
 
 ###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#weight
-:weight rdf:type owl:DatatypeProperty ;
-        rdfs:range xsd:decimal .
+:weight rdf:type owl:DatatypeProperty .
 
 
 ###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#wingSpan

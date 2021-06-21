@@ -10,11 +10,8 @@ g.bind('owl','http://www.w3.org/2002/07/owl#')
 def new_ref(i):
     return URIRef('http://www.semanticweb.org/antóniocarvalho/ontologies/animals#' + i)
 
-def check_add():
-    return(0)
-
 def add_object_properties(animal,info):
-    g.add((new_ref(animal), RDF.type, new_ref('Animal')))
+    g.add((new_ref(animal), RDF.type, new_ref(info['type'])))
     g.add((new_ref(animal), RDF.type, OWL.NamedIndividual))
     for pair in op:
         if pair[1] in info:
@@ -60,7 +57,7 @@ op.append(('hasOrder','Order'))
 op.append(('hasFamily','Family'))
 op.append(('hasGenus','Genus'))
 op.append(('livesIn','World Location'))
-# op.append(('hasPrey','Prey'))
+op.append(('hasPrey','Prey'))
 # op.append(('hasPredator','Predator'))
 
 dp.append(('colour','Colour'))
@@ -82,5 +79,8 @@ for animal,info in animals.items():
 
 
 
+turtle = g.serialize(format="turtle").decode("utf-8")
+print(turtle)
 
-print(g.serialize(format="turtle").decode("utf-8"))
+with open("individuals.ttl", "w") as text_file:
+    text_file.write(turtle)
