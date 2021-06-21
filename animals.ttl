@@ -22,12 +22,6 @@
            owl:inverseOf :hasClassification .
 
 
-###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#hasClass
-:hasClass rdf:type owl:ObjectProperty ;
-          rdfs:subPropertyOf :hasClassification ;
-          rdfs:domain :Animal .
-
-
 ###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#hasClasse
 :hasClasse rdf:type owl:ObjectProperty ;
            rdfs:subPropertyOf :hasClassification ;
@@ -235,7 +229,6 @@
 ###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#Crab
 :Crab rdf:type owl:NamedIndividual ,
                :Invertebrate ;
-      :hasClass :Malacostraca ;
       :hasFamily :Brachyura ;
       :hasKingdom :Animalia ;
       :hasOrder :Decapoda ;

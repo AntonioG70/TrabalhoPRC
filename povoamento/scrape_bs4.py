@@ -36,14 +36,6 @@ def get_animal(animal):
     classes = boxes[0]
     info = boxes[1]
 
-    locations = classes.find('img', class_="animal-location-map").previous_sibling.previous_sibling
-    if locations:
-        locs_list = list(map(lambda x: x.text, locations.find_all('li')))
-        if len(locs_list) == 1:
-            animal['Location'] = locs_list[0]
-        else:
-            animal['Location'] = locs_list
-
     for title in classes.find_all('dt'):
         animal[title.text] = title.next_sibling.text
 
@@ -53,6 +45,14 @@ def get_animal(animal):
             animal[title.text] = sibling.text
         else:
             animal[title.text] = list(map(lambda x: x.text, sibling.find_all('li')))
+    
+    locations = classes.find('img', class_="animal-location-map").previous_sibling.previous_sibling
+    if locations:
+        locs_list = list(map(lambda x: x.text, locations.find_all('li')))
+        if len(locs_list) == 1:
+            animal['World Location'] = locs_list[0]
+        else:
+            animal['World Location'] = locs_list
 
     return animal
 
