@@ -32,7 +32,7 @@ def cria_classificacao(animal):
 
     location = findall(animal + r' Locations.*' + animal + r' Locations', resp.text)
     location2 = findall(r'([A-Za-z -]*)<\/a', location[0])
-
+    
     lista = class2 + facts2 + carac2
 
     for c in colour:
