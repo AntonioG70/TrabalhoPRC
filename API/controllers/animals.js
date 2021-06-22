@@ -1,8 +1,17 @@
 var graphdb = require('../utils/graphdb')
 
-module.exports.getAnimals = () => {
+module.exports.getAnimals = (type,location) => {
+    let linetype = ""
+    let linelocation = ""
+    if (type)
+        linetype = 'rdf:type :' + type + ' ;\n'
+    if (location)
+        linelocation = ':livesIn :' + location + ' ;\n'
+
     let query = `SELECT ?a WHERE {
                 ?a rdf:type :Animal ;
+                ` + linetype + `
+                ` + linelocation + `
             }`
 
     return graphdb.execQuery(query)
