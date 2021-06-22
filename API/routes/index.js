@@ -4,8 +4,15 @@ var graphdb = require('../utils/graphdb')
 
 /* GET home page. */
 router.get('/animals', function(req, res, next) {
+    let type = req.query.type
+    let linetype = ''
+    if(type)
+        linetype = 'rdf:type :' + type + ' ;\n'
+        
+
     let query = `SELECT ?a WHERE {
-                    ?a rdf:type :Animal .
+                    ?a rdf:type :Animal ;
+                    ` + linetype + `
                 }`
 
     graphdb.execQuery(query)
