@@ -32,6 +32,30 @@ router.get('/:animal', function(req, res){
         .catch(err => res.status(500).jsonp(err))  
 })
 
+router.get('/locations', function(req, res){
+    Animals.getAnimalLocation()
+        .then(dados => {
+            let locations = dados.data.results.bindings
+            locations = locations.map(elem => {
+                return graphdb.pair2Value(elem.l)
+            })
+            res.status(200).jsonp(locations)
+        })
+        .catch(err => res.status(500).jsonp(err))    
+})
+
+router.get('/types', function(req, res){
+    Animals.getTypes()
+        .then(dados => {
+            let types = dados.data.results.bindings
+            console.log(types)
+            types = types.map(elem => {
+                return graphdb.pair2Value(elem.t)
+            })
+            res.status(200).jsonp(types)
+        })
+        .catch(err => res.status(500).jsonp(err))    
+})
 
 
 module.exports = router;
