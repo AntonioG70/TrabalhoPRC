@@ -23,8 +23,8 @@ passport.use(new LocalStrategy(
   { usernameField: 'id' }, function (id, password, done) {
 
     const user = {
-      "id":"arroz",
-      "password":"de pato"
+      "id":id,
+      "password": password
     }
 
     return done(null, user)

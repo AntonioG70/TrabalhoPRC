@@ -61,6 +61,22 @@ module.exports.getAnimalTypeLocation = (type, loc) => {
     return graphdb.execQuery(query)
 }
 
+module.exports.getTypes = () => {
+    let query = `SELECT ?t WHERE {
+        ?t rdfs:subClassOf :Animal.
+    }`
+
+    return graphdb.execQuery(query)
+}
+
+module.exports.getLocationss = () => {
+    let query = `SELECT ?l WHERE {
+        ?l rdf:type :Location.
+    }`
+
+    return graphdb.execQuery(query)
+} 
+
 
 
 
