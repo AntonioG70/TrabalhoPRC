@@ -11,13 +11,14 @@ def get_animal_links(tipo):
 
     soup = BeautifulSoup(resp.text, "html.parser")
 
-    titles = soup.find_all("h5", class_="card-title")
+    cards = soup.find_all("div", class_="card")
 
     animal_links = []
 
-    for title in titles:
-        link = title.find('a')['href']
-        animal_links += [link]
+    for card in cards:
+        link = card.find('a')['href']
+        img = card.find('img')['src']
+        animal_links += [(link,img)]
     
     return animal_links
 
@@ -68,16 +69,20 @@ for t in types:
         tipo = t.capitalize()[:-1]
         if tipo == 'Fis':
             tipo = 'Fish'
-        animals[l] = {'type': tipo}
+        animals[l[0]] = {'type': tipo, 'img': l[1]}
 
 print("DONE LINKS (" + str(len(links)) + ")")
 
-for link in links:
+for pair in links:
+    link = pair[0]
     print(link)
     animal = get_animal(link)
     if animal:
         animal['type'] = animals[link]['type']
+        animal['img'] = animals[link]['img']
         animals[link] = animal
+    else:
+        del animals[link]
 
 for animal in animals.values():
     if 'Prey' in animal.keys():
