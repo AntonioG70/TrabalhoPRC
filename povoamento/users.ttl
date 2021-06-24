@@ -29,7 +29,8 @@
 #################################################################
 
 ###  http://www.di.uminho.pt/prc2021/users-tp#ant_lindo99
-:ant_lindo99 rdf:type owl:NamedIndividual ;
+:ant_lindo99 rdf:type owl:NamedIndividual ,
+                      :Users ;
              :password "ambox" .
 
 
