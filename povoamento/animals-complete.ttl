@@ -121,6 +121,10 @@
 :habitat rdf:type owl:DatatypeProperty .
 
 
+###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#image
+:image rdf:type owl:DatatypeProperty .
+
+
 ###  http://www.semanticweb.org/antóniocarvalho/ontologies/animals#length
 :length rdf:type owl:DatatypeProperty .
 
