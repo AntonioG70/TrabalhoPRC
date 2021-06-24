@@ -18,6 +18,14 @@ module.exports.getAnimals = (type,location) => {
               
 }   
 
+module.exports.getLocations = () => {
+    let query = `SELECT ?l WHERE {
+        ?l rdf:type :Location.
+    }`
+
+    return graphdb.execQuery(query)
+} 
+
 module.exports.getAnimalsType = (type) => {
     linetype = 'rdf:type :' + type + ' ;\n'
 
@@ -69,13 +77,6 @@ module.exports.getTypes = () => {
     return graphdb.execQuery(query)
 }
 
-module.exports.getLocationss = () => {
-    let query = `SELECT ?l WHERE {
-        ?l rdf:type :Location.
-    }`
-
-    return graphdb.execQuery(query)
-} 
 
 
 
