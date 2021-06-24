@@ -3,7 +3,30 @@ var router = express.Router();
 var graphdb = require('../utils/graphdb')
 var Animals = require('../controllers/animals')
 
-/* GET home page. */
+router.get('/locations', function(req, res){
+    Animals.getLocations()
+        .then(dados => {
+            let locations = dados.data.results.bindings
+            locations = locations.map(elem => {
+                return graphdb.pair2Value(elem.l)
+            })
+            res.status(200).jsonp(locations)
+        })
+        .catch(err => res.status(500).jsonp(err))    
+})
+
+router.get('/types', function(req, res){
+    Animals.getTypes()
+        .then(dados => {
+            let types = dados.data.results.bindings
+            types = types.map(elem => {
+                return graphdb.pair2Value(elem.t)
+            })
+            res.status(200).jsonp(types)
+        })
+        .catch(err => res.status(500).jsonp(err))    
+})
+
 router.get('/', async function(req, res, next) {
     let type = req.query.type
     let location = req.query.location
@@ -31,31 +54,5 @@ router.get('/:animal', function(req, res){
         })
         .catch(err => res.status(500).jsonp(err))  
 })
-
-router.get('/locations', function(req, res){
-    Animals.getAnimalLocation()
-        .then(dados => {
-            let locations = dados.data.results.bindings
-            locations = locations.map(elem => {
-                return graphdb.pair2Value(elem.l)
-            })
-            res.status(200).jsonp(locations)
-        })
-        .catch(err => res.status(500).jsonp(err))    
-})
-
-router.get('/types', function(req, res){
-    Animals.getTypes()
-        .then(dados => {
-            let types = dados.data.results.bindings
-            console.log(types)
-            types = types.map(elem => {
-                return graphdb.pair2Value(elem.t)
-            })
-            res.status(200).jsonp(types)
-        })
-        .catch(err => res.status(500).jsonp(err))    
-})
-
 
 module.exports = router;
