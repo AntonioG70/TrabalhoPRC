@@ -7,6 +7,7 @@ var Animals = require('../controllers/animals')
 router.get('/', async function(req, res, next) {
     let type = req.query.type
     let location = req.query.location
+    if(req.isAuthenticated) console.log('hello FRINED')
 
     Animals.getAnimals(type, location)
         .then(dados => {

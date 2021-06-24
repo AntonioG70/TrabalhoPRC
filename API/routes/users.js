@@ -7,8 +7,19 @@ var passport = require('passport')
 
 router.post('/login', passport.authenticate('local'), function(req, res){
     //res.status(201).jsonp(req.user) not sure if this works é testar
-    res.status(201).jsonp()
+    res.status(201).jsonp('hello')
   })
+
+router.get('/logout', function(req,res) {
+  req.logout();
+  req.session.destroy(function (err) {
+    if (!err) {
+      res.status(200).jsonp('destroyed');
+    } else {
+      console.log('Destroy session error: ', err)
+    }
+  });
+})
 
 router.post('/register', function(req,res) {
     //User.inserir(req.body)
