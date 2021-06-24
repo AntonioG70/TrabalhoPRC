@@ -15,7 +15,7 @@
             <HomeMenu title='Animal' :links='animalTypes'/>
             <HomeMenu title='Locations' :links='locations'/>
             <HomeMenu title='Classification' :links='locations'/>
-            <v-btn flat v-bind="attrs" v-on="on" color="white">
+            <v-btn flat color="white">
                 <v-icon left color="black">mdi-magnify</v-icon>
                  <span>Advanced Search</span>
             </v-btn>

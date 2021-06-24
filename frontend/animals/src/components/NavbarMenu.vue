@@ -1,8 +1,8 @@
 <template>
-    <v-menu offset-y top>
+    <v-menu offset-y >
                 <template v-slot:activator="{ on, attrs }">
-                    <v-btn flat v-bind="attrs" v-on="on">
-                        <v-icon left color="black">mdi-plus</v-icon>
+                    <v-btn elevation='0' tile v-bind="attrs" v-on="on" color="light-grey">
+                        <v-icon left color="#6DB045">mdi-plus</v-icon>
                         <span>{{ title }}</span>
                     </v-btn>
                 </template>
@@ -21,7 +21,7 @@
 
 <script>
     export default {
-        name: 'HomeMenu',
+        name: 'NavbarMenu',
         props: ['links','title'],
     }
 
