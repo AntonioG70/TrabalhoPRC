@@ -4,16 +4,19 @@
     <v-list class='animal-list'>
         <v-list-item
             v-for="animal in animals"
-            :key="animal.text"
+            :key="animal.name"
         >
-             <div class="animal-box">
-                <div class="separator">
+            <router-link :to='"animals/" + animal.name' style="text-decoration: none; color: inherit;">
+                <div class="animal-box">
+                    <div class="separator">
+                    </div>
+                    <img :src='animal.img' :alt='animal.text' class="animal-img"/>
+                    <div class="animal-name text-md-body-1">
+                        <v-icon left color="light-gray">mdi-arrow-top-right</v-icon>
+                        {{animal.name}}
+                    </div>
                 </div>
-                <img :src='animal.img' :alt='animal.text' class="animal-img"/>
-                <div class="animal-name">
-                    {{animal.name}}
-                </div>
-             </div>
+             </router-link>
         </v-list-item>
     </v-list>
   </div>
@@ -30,11 +33,7 @@
                       {name: 'Cat', img:'https://i.imgur.com/Q6pAkWl.png'},
                       {name: 'Hamster', img:'https://i.imgur.com/xBntSnV.jpeg'},
                       {name: 'Elephant', img:'https://i.imgur.com/L3B21wl.jpeg'},
-                      {name: 'Cat', img:'https://i.imgur.com/Q6pAkWl.png'},],
-            thing : `<v-list-item-avatar rounded='0'>
-                        <v-img :src="animal.img"/>
-                    </v-list-item-avatar>
-                    <v-list-item-title>{{ animal.name }}</v-list-item-title>'`
+                      {name: 'Cat', img:'https://i.imgur.com/Q6pAkWl.png'},]
             }
         },
         components: {
@@ -67,13 +66,21 @@
         margin: 20px 0;
     }
 
+    .animal-box:hover {
+        filter: brightness(90%);
+        cursor: pointer
+    }
+
     .separator {
         width: 0.5vw;
         height: 100%;
-        background-color: #6DB045;
+        background: linear-gradient(to left, #6DB045 20%, #8cc04d 100%);
     }
 
     .animal-name {
         height: 100%;
+        display: flex;
+        align-items: center;
+        margin-left: 20px;
     }
 </style>
