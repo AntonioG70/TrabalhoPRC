@@ -35,7 +35,16 @@
         },
         components: {
             Navbar,
+        },
+        watch: {
+            "$route.params": {
+            immediate: true,
+                handler(n) {
+                    this.classification = n.id
+                }
+            }
         }
+        
     }
 
 </script>
