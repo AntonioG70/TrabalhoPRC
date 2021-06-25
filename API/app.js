@@ -78,9 +78,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/animals', animalsRouter);
-app.use('/users', usersRouter);
-
 app.use(function (req, res, next) {
   if (req.url == "/users/login" || req.url == "/users/register"){
     next()
@@ -92,6 +89,11 @@ app.use(function (req, res, next) {
     res.status(401).jsonp({ erro: 'erro na verificação do user' });
   }
 })
+
+app.use('/animals', animalsRouter);
+app.use('/users', usersRouter);
+
+
 
 
 // catch 404 and forward to error handler
