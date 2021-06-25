@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Animals from '../views/Animals.vue'
 import Animal from '../views/Animal.vue'
+import Classification from '../views/Classification.vue'
+
 
 Vue.use(VueRouter)
 
@@ -21,6 +23,11 @@ const routes = [
         path: '/animal/:id',
         name: 'Animal',
         component: Animal
+    },
+    {
+        path: '/classification/:id',
+        name: 'Classification',
+        component: Classification
     }
 ]
 

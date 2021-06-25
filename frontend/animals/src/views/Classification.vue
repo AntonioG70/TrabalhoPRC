@@ -1,19 +1,19 @@
 <template>
   <div >
     <Navbar />
-    <v-list class='animal-list'>
+    <v-list class='classification-list'>
+        <span style="font-size: 48px">{{classification}}</span>
         <v-list-item
-            v-for="animal in animals"
-            :key="animal.name"
+            v-for="c in classifications"
+            :key="c"
         >
-            <router-link :to='"/animal/" + animal.name' style="text-decoration: none; color: inherit;">
-                <div class="animal-box">
+            <router-link :to='"/animals/?" + classification + "=" + c' style="text-decoration: none; color: inherit;">
+                <div class="classification-box">
                     <div class="separator">
                     </div>
-                    <img :src='animal.img' :alt='animal.text' class="animal-img"/>
-                    <div class="animal-name text-md-body-1">
-                        <v-icon left color="light-gray">mdi-arrow-top-right</v-icon>
-                        {{animal.name}}
+                    <div class="classification-name text-lg-body-1">
+                        <v-icon left color="light-gray">mdi-magnify</v-icon>
+                        {{c}}
                     </div>
                 </div>
              </router-link>
@@ -26,14 +26,11 @@
     import Navbar from '../components/Navbar.vue'
     
     export default {
-        name: 'Animals',
+        name: 'Classifications',
         data () {
             return {
-            animals: [{name: 'Dog', img:'https://i.imgur.com/ThWoXl7.jpg'},
-                      {name: 'Cat', img:'https://i.imgur.com/Q6pAkWl.png'},
-                      {name: 'Hamster', img:'https://i.imgur.com/xBntSnV.jpeg'},
-                      {name: 'Elephant', img:'https://i.imgur.com/L3B21wl.jpeg'},
-                      {name: 'Cat', img:'https://i.imgur.com/Q6pAkWl.png'},]
+            classifications: ["pamba","pemba","pimba","pomba","pumba"],
+            classification: this.$route.params.id
             }
         },
         components: {
@@ -44,7 +41,7 @@
 </script>
 
 <style scoped>
-    .animal-list {
+    .classification-list {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -52,12 +49,7 @@
         height: 100%
     }
 
-    .animal-img {
-        width: 9.5vw;
-        height: 100px;
-    }
-
-    .animal-box {
+    .classification-box {
         width: 50vw;
         display: flex;
         align-items: center;
@@ -66,7 +58,7 @@
         margin: 20px 0;
     }
 
-    .animal-box:hover {
+    .classification-box:hover {
         filter: brightness(90%);
         cursor: pointer
     }
@@ -77,7 +69,7 @@
         background: linear-gradient(to left, #6DB045 20%, #8cc04d 100%);
     }
 
-    .animal-name {
+    .classification-name {
         height: 100%;
         display: flex;
         align-items: center;
