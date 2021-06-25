@@ -1,17 +1,38 @@
 var graphdb = require('../utils/graphdb')
 
-module.exports.getAnimals = (type,location) => {
+module.exports.getAnimals = (type, location, kingdom, genus, family, order, phylum) => {
     let linetype = ""
     let linelocation = ""
+    let linekingdom = ""
+    let linegenus = ""
+    let linefamily = ""
+    let lineorder = ""
+    let linephylum = ""
+
     if (type)
         linetype = 'rdf:type :' + type + ' ;\n'
     if (location)
         linelocation = ':livesIn :' + location + ' ;\n'
+    if (kingdom)
+        linekingdom = ':hasKingdom :' + kingdom + ' ;\n'      
+    if (genus)
+        linegenus = ':hasGenus :' + genus + ' ;\n'
+    if (family)
+        linefamily = ':hasFamily :' + family + ' ;\n'   
+    if (order)
+        lineorder = ':hasOrder :' + order + ' ;\n' 
+    if (phylum)
+        linephylum = ':hasPhylum :' + phylum + ' ;\n'
 
     let query = `SELECT ?a WHERE {
                 ?a rdf:type :Animal ;
                 ` + linetype + `
                 ` + linelocation + `
+                ` + linekingdom + `
+                ` + linegenus + `
+                ` + linefamily + `
+                ` + lineorder + `
+                ` + linephylum + `
             }`
 
     return graphdb.execQuery(query)
@@ -26,47 +47,15 @@ module.exports.getLocations = () => {
     return graphdb.execQuery(query)
 } 
 
-module.exports.getAnimalsType = (type) => {
-    linetype = 'rdf:type :' + type + ' ;\n'
-
-    let query = `SELECT ?a WHERE {
-                ?a rdf:type :Animal ;
-                ` + linetype + `
-            }`
-
-    return graphdb.execQuery(query)
-                
-}
-
 module.exports.getAnimalInfo = (animal) => {
 
     let query = `SELECT * WHERE {
-                :` + animal + ` ?p ?o ;
+                :` + animal + ` ?p ?o .
+                FILTER (?o != owl:NamedIndividual)
             }`
 
     return graphdb.execQuery(query)
                 
-}
-
-module.exports.getAnimalLocation = (loc) => {
-
-    let query = `SELECT ?a WHERE {
-        ?a rdf:type :Animal ;
-            :livesIn :` + loc + `
-    }`
-
-    return graphdb.execQuery(query)
-                
-}
-
-module.exports.getAnimalTypeLocation = (type, loc) => {
-    let query = `SELECT ?a WHERE {
-        ?a rdf:type :Animal ;
-            rdf:type :` + type + `; 
-            :livesIn :` + loc + `
-    }`
-    
-    return graphdb.execQuery(query)
 }
 
 module.exports.getTypes = () => {

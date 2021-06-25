@@ -30,8 +30,13 @@ router.get('/types', function(req, res){
 router.get('/', async function(req, res, next) {
     let type = req.query.type
     let location = req.query.location
+    let kingdom = req.query.kingdom
+    let genus = req.query.genus
+    let family = req.query.family
+    let order = req.query.order
+    let phylum = req.query.phylum
 
-    Animals.getAnimals(type, location)
+    Animals.getAnimals(type, location, kingdom, genus, family, order, phylum)
         .then(dados => {
             let animals = dados.data.results.bindings
             animals = animals.map(elem => {
@@ -50,7 +55,26 @@ router.get('/:animal', function(req, res){
             p: graphdb.pair2Value(elem.p),
             o: graphdb.pair2Value(elem.o)
             }})
-            res.status(200).jsonp(animals)
+            
+            let animalInfo = {}
+            for(var key in animals) {
+                var data = animals[key];
+                if(data.p in animalInfo){
+                    if(Array.isArray(animalInfo[data.p])){
+                        animalInfo[data.p].push(data.o)
+                    }
+                    else {
+                        array = []
+                        array.push(animalInfo[data.p])
+                        array.push(data.o)
+                        animalInfo[data.p] = array
+                    }
+                }
+                else {
+                    animalInfo[data.p] = data.o
+                }
+            }
+            res.status(200).jsonp(animalInfo)
         })
         .catch(err => res.status(500).jsonp(err))  
 })
