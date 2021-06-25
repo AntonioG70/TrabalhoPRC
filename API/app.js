@@ -22,23 +22,19 @@ var usersRouter = require('./routes/users');
 passport.use(new LocalStrategy(
   { usernameField: 'id' }, function (id, password, done) {
 
-    const user = {
-      "id":id,
-      "password": password
-    }
-
-    return done(null, user)
-
-    /*User.getUsers(id)
+    User.getUser(id)
       .then(dados => {
-        const user = dados
+        const user = {
+          id:id,
+          password:dados.data.results.bindings[0].p.value
+        }
         
-        if (!user) { return done(null, false, { message: 'Utilizador Inexistente\n' }) }
-        if (!Bcrypt.compareSync(password, user.password)) { return done(null, false, { message: 'Credenciais Inválidas\n' }) }
-        if (password != user.password) { return done(null, false, { message: 'Credenciais Inválidas\n' }) }
+        //if (!user) { return done(null, false, { message: 'Utilizador Inexistente\n' }) }
+        //if (!Bcrypt.compareSync(password, user.password)) { return done(null, false, { message: 'Credenciais Inválidas\n' }) }
+        //if (password != user.password) { return done(null, false, { message: 'Credenciais Inválidas\n' }) }
         return done(null, user)
       })
-      .catch(erro => done(erro))*/
+      .catch(erro => done(erro))
   }
 ))
 
@@ -47,8 +43,16 @@ passport.serializeUser((user, done) => {
 })
 
 passport.deserializeUser((uid, done) => {
-  User.lookUp(uid)
-    .then(dados => done(null, dados))
+  User.getUser(uid)
+    .then(dados => {
+      
+      done(null, dados.data.results.bindings.map( bind => {
+        return {
+          id:uid,
+          password:bind.p.value
+        }
+      })[0])
+    })
     .catch(erro => done(erro, false))
 })
 
@@ -74,10 +78,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 app.use(function (req, res, next) {
-  if (req.url == "/users/login" || req.url == "/users/register")
+  if (req.url == "/users/login" || req.url == "/users/register"){
     next()
+  } 
   else if (req.isAuthenticated()) {
     next();
   }
@@ -88,6 +92,8 @@ app.use(function (req, res, next) {
 
 app.use('/animals', animalsRouter);
 app.use('/users', usersRouter);
+
+
 
 
 // catch 404 and forward to error handler

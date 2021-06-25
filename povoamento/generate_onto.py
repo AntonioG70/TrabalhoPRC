@@ -71,6 +71,7 @@ dp.append(('lifeSpan','Lifespan'))
 dp.append(('scientificname','Scientific Name'))
 dp.append(('skinType','Skin Type'))
 dp.append(('wingSpan','Wingspan'))
+dp.append(('image','img'))
 
 
 for animal,info in animals.items():

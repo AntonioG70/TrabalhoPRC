@@ -11,6 +11,7 @@
                         v-for="link in links"
                         :key="link.text"
                         link
+                        exact
                         :to='link.route'
                     >
                         <v-list-item-title>{{ link.text }}</v-list-item-title>
