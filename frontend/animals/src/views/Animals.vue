@@ -6,7 +6,7 @@
             v-for="animal in animals"
             :key="animal.name"
         >
-            <router-link :to='"animals/" + animal.name' style="text-decoration: none; color: inherit;">
+            <router-link :to='"animal/" + animal.name' style="text-decoration: none; color: inherit;">
                 <div class="animal-box">
                     <div class="separator">
                     </div>
