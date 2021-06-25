@@ -17,8 +17,30 @@
         </div>
         <div class="facts">
             <div class='col'>
+                <div class="separator" />
+                <div class="facts-list">
+                    <Fact title="Kingdom" fact="Animalia" link="/animals?Kingdom="/>
+                    <Fact title="Phylum" fact="Chordata" link="/animals?Phylum="/>
+                    <Fact title="Class" fact="Mammalia" link="/animals?Class="/>
+                    <Fact title="Order" fact="Tubulidentata" link="/animals?Order="/>
+                    <Fact title="Genus" fact="Orycteropus" link="/animals?Genus="/>
+                    <Fact title="Family" fact="Orycteropodidae" link="/animals?Family="/>
+                    <Fact title="Scientific Name" fact="Orycteropus afer" />
+                </div>
             </div>
             <div class='col'>
+                <div class="separator" />
+                <div>
+                    <Fact title='Color' :fact="['Colour','simba','boba']"/>
+                    <Fact title='Diet' fact='Diet' />
+                    <Fact title='Gestation Period' fact='Gestation Period' />
+                    <Fact title='Habitat' fact='Habitat' />
+                    <Fact title='Length' fact='Length' />
+                    <Fact title='Weight' fact='Wheight' />
+                    <Fact title='Life Span' fact='Lifespan' />
+                    <Fact title='Skin Type' fact='Skin Type' />
+                    <Fact title='Wingspan' fact='Wingspan' />      
+                </div>
             </div>
         </div>
     </div>
@@ -27,6 +49,7 @@
 
 <script>
     import Navbar from '../components/Navbar.vue'
+    import Fact from '../components/Fact.vue'
     
     export default {
         name: 'Animal',
@@ -37,6 +60,7 @@
         },
         components: {
             Navbar,
+            Fact,
         }
     }
 
@@ -86,6 +110,20 @@
 
     .facts {
         width: 60vw;
-        border: 2px solid blue
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 50px;
+    }
+
+    .col {
+        flex-basis: 45%;
+        box-sizing: border-box;
+        display: flex;
+        background-color: rgb(243, 243, 243);
+    }
+
+    .fact-list {
+        display: flex;
+        flex-direction: column;
     }
 </style>
