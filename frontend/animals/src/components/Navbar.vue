@@ -9,8 +9,8 @@
             </router-link>
             <div class='buttons'>
                 <NavbarMenu title='Animal' :links='animalTypes'/>
-                <NavbarMenu title='Location' :links='animalTypes'/>
-                <NavbarMenu title='Classification' :links='animalTypes'/>
+                <NavbarMenu title='Location' :links='locations'/>
+                <NavbarMenu title='Classification' :links='classifications'/>
                 <v-btn elevation='0' tile v-bind="attrs" v-on="on" color="light-grey">
                     <v-icon left color="#6DB045">mdi-magnify</v-icon>
                     <span>Search</span>
@@ -25,6 +25,27 @@
     export default {
         name: 'Navbar',
         props: ['links','title'],
+        data () {
+            return {
+                animalTypes: [{ text: 'Mammals', route: '/animals?type=Mammals' },
+                              { text: 'Fish', route: '/animals?type=Fish' },
+                              { text: 'Reptiles', route: '/animals?type=Reptiles' },
+                              { text: 'Insects', route: '/animals?type=Insects' },
+                              { text: 'Birds', route: '/animals?type=Birds' },],
+                locations: [{ text: 'Africa', route: '/animals?location=Africa' },
+                            { text: 'Europe', route: '/animals?location=Europe' },
+                            { text: 'America', route: '/animals?location=America' },
+                            { text: 'Asia', route: '/animals?location=Asia' },
+                            { text: 'Antarctica', route: '/animals?location=Antarctica' },
+                            { text: 'Oceania', route: '/animals?location=Oceania' },],
+                classifications: [{ text: 'Kingdom', route: '/classification/Kingdom' },
+                                  { text: 'Phylum', route: '/classification/Phylum' },
+                                  { text: 'Class', route: '/classification/Class' },
+                                  { text: 'Order', route: '/classification/Order' },
+                                  { text: 'Genus', route: '/classification/Genus' },
+                                  { text: 'Family', route: '/classification/Family' },]
+            }
+        },
         components: {
             NavbarMenu
         }

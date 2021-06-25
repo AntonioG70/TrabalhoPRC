@@ -14,7 +14,7 @@
         <div class="buttons">
             <HomeMenu title='Animal' :links='animalTypes'/>
             <HomeMenu title='Locations' :links='locations'/>
-            <HomeMenu title='Classification' :links='locations'/>
+            <HomeMenu title='Classification' :links='classifications'/>
             <v-btn flat color="white">
                 <v-icon left color="black">mdi-magnify</v-icon>
                  <span>Advanced Search</span>
@@ -40,7 +40,13 @@
                             { text: 'America', route: '/animals?location=America' },
                             { text: 'Asia', route: '/animals?location=Asia' },
                             { text: 'Antarctica', route: '/animals?location=Antarctica' },
-                            { text: 'Oceania', route: '/animals?location=Oceania' },]
+                            { text: 'Oceania', route: '/animals?location=Oceania' },],
+                classifications: [{ text: 'Kingdom', route: '/classification/Kingdom' },
+                                  { text: 'Phylum', route: '/classification/Phylum' },
+                                  { text: 'Class', route: '/classification/Class' },
+                                  { text: 'Order', route: '/classification/Order' },
+                                  { text: 'Genus', route: '/classification/Genus' },
+                                  { text: 'Family', route: '/classification/Family' },]
             } 
         },
         mounted () {
