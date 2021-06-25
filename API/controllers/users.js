@@ -9,4 +9,16 @@ module.exports.getUser = (username) => {
 
     return graphdb.execQuery(query)
               
+}
+
+module.exports.addUser = (username, password) => {
+
+    let query = `INSERT DATA {
+                :${username} rdf:type :Users .
+                :${username} rdf:type owl:NamedIndividual .
+                :${username} :password "${password}" .
+            }`
+
+    return graphdb.execTransaction(query)
+              
 }   
