@@ -19,12 +19,12 @@
             <div class='col'>
                 <div class="separator" />
                 <div class="facts-list">
-                    <Fact title="Kingdom" fact="Animalia" link="/animals?Kingdom=Animalia"/>
-                    <Fact title="Phylum" fact="Chordata" link="/animals?Phylum=Chordata"/>
-                    <Fact title="Class" fact="Mammalia" link="/animals?Class=Mammalia"/>
-                    <Fact title="Order" fact="Tubulidentata" link="/animals?Order=Tubulidentata"/>
-                    <Fact title="Genus" fact="Orycteropus" link="/animals?Genus=Orycteropus"/>
-                    <Fact title="Family" fact="Orycteropodidae" link="/animals?Family=Orycteropodidae"/>
+                    <Fact title="Kingdom" fact="Animalia" link="/animals?Kingdom="/>
+                    <Fact title="Phylum" fact="Chordata" link="/animals?Phylum="/>
+                    <Fact title="Class" fact="Mammalia" link="/animals?Class="/>
+                    <Fact title="Order" fact="Tubulidentata" link="/animals?Order="/>
+                    <Fact title="Genus" fact="Orycteropus" link="/animals?Genus="/>
+                    <Fact title="Family" fact="Orycteropodidae" link="/animals?Family="/>
                     <Fact title="Scientific Name" fact="Orycteropus afer" />
                 </div>
             </div>
