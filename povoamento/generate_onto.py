@@ -72,6 +72,7 @@ dp.append(('scientificname','Scientific Name'))
 dp.append(('skinType','Skin Type'))
 dp.append(('wingSpan','Wingspan'))
 dp.append(('image','img'))
+dp.append(('locationImage', 'locationImage'))
 
 
 for animal,info in animals.items():
