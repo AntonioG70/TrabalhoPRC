@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Animals from '../views/Animals.vue'
 import Animal from '../views/Animal.vue'
 import Classification from '../views/Classification.vue'
+import AdvancedSearch from '../views/AdvancedSearch.vue'
 
 
 Vue.use(VueRouter)
@@ -28,6 +29,11 @@ const routes = [
         path: '/classification/:id',
         name: 'Classification',
         component: Classification
+    },
+    {
+        path: '/search',
+        name: 'Advanced Search',
+        component: AdvancedSearch
     }
 ]
 

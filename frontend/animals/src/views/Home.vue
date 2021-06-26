@@ -15,10 +15,12 @@
             <HomeMenu title='Animal' :links='animalTypes'/>
             <HomeMenu title='Locations' :links='locations'/>
             <HomeMenu title='Classification' :links='classifications'/>
-            <v-btn flat color="white">
-                <v-icon left color="black">mdi-magnify</v-icon>
-                 <span>Advanced Search</span>
-            </v-btn>
+            <router-link to="/search" style="text-decoration: none; color: inherit;">
+                <v-btn flat color="white">
+                    <v-icon left color="black">mdi-magnify</v-icon>
+                    <span>Advanced Search</span>
+                </v-btn>
+            </router-link>
         </div>
     </div>
 </template>
