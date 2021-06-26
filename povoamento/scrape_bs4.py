@@ -46,8 +46,10 @@ def get_animal(animal):
             animal[title.text] = sibling.text
         else:
             animal[title.text] = list(map(lambda x: x.text, sibling.find_all('li')))
-    
+
+    location_image = classes.find_all('img', class_="animal-location-map")[0]['src']
     locations = classes.find('img', class_="animal-location-map").previous_sibling.previous_sibling
+
     if locations:
         locs_list = list(map(lambda x: x.text, locations.find_all('li')))
         if len(locs_list) == 1:
@@ -55,6 +57,8 @@ def get_animal(animal):
         else:
             animal['World Location'] = locs_list
 
+    animal['locationImage'] = location_image
+    
     return animal
 
 types = ["mammals", "reptiles", "fish", "birds", "amphibians", "insects"]
@@ -93,8 +97,6 @@ for animal in animals.values():
             animal['Prey'] = preys
         else:
             del animal['Prey']
-
-
 
 print(animals)
 
