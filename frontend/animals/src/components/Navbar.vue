@@ -12,7 +12,7 @@
                 <NavbarMenu title='Location' :links='locations'/>
                 <NavbarMenu title='Classification' :links='classifications'/>
                 <router-link to="/search" style="text-decoration: none; color: inherit;">
-                    <v-btn elevation='0' tile v-bind="attrs" v-on="on" color="light-grey">
+                    <v-btn elevation='0' color="light-grey">
                         <v-icon left color="#6DB045">mdi-magnify</v-icon>
                         <span>Search</span>
                     </v-btn>
