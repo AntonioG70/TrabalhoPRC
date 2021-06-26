@@ -20,6 +20,7 @@ var User = require('./controllers/users')
 
 var animalsRouter = require('./routes/animals');
 var usersRouter = require('./routes/users');
+var classRouter = require('./routes/classifications');
 
 
 passport.use(new LocalStrategy(
@@ -96,6 +97,7 @@ app.use(function (req, res, next) {
 
 app.use('/animals', animalsRouter);
 app.use('/users', usersRouter);
+app.use('/classifications', classRouter);
 
 
 
