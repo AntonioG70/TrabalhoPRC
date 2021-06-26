@@ -4,14 +4,14 @@
     <div class="page">
         <div class="animal-header">
             <div class="separator" />
-            <img :src='animal.img' :alt='animal.name' class="animal-img"/>
+            <img :src='animal.image' :alt='animal_id' class="animal-img"/>
             <div class="animal-name">
                 <div class="title">
                     <v-icon left color="light-gray" x-large>mdi-chevron-right</v-icon>
-                    <div> {{animal.name}} </div>
+                    <div> {{animal_id.split('-').map(s => s[0].toUpperCase() + s.slice(1)).join(' ') /* Remove hifens and capitalize */ }} </div>
                 </div>
                 <div class='text--secondary ml-12 fun-fact'>
-                    {{animal.funfact}}
+                    {{animal.fact}}
                 </div>
             </div>
         </div>
@@ -19,27 +19,30 @@
             <div class='col'>
                 <div class="separator" />
                 <div class="facts-list">
-                    <Fact title="Kingdom" fact="Animalia" link="/animals?Kingdom="/>
-                    <Fact title="Phylum" fact="Chordata" link="/animals?Phylum="/>
-                    <Fact title="Class" fact="Mammalia" link="/animals?Class="/>
-                    <Fact title="Order" fact="Tubulidentata" link="/animals?Order="/>
-                    <Fact title="Genus" fact="Orycteropus" link="/animals?Genus="/>
-                    <Fact title="Family" fact="Orycteropodidae" link="/animals?Family="/>
-                    <Fact title="Scientific Name" fact="Orycteropus afer" />
+                    <Fact title="Kingdom" :fact="animal.hasKingdom" link="/animals?Kingdom="/>
+                    <Fact title="Phylum" :fact="animal.hasPhylum" link="/animals?Phylum="/>
+                    <Fact title="Class" :fact="animal.hasClass" link="/animals?Class="/>
+                    <Fact title="Order" :fact="animal.hasOrder" link="/animals?Order="/>
+                    <Fact title="Genus" :fact="animal.hasGenus" link="/animals?Genus="/>
+                    <Fact title="Family" :fact="animal.hasFamily" link="/animals?Family="/>
+                    <Fact title="Scientific Name" :fact="animal.scientificname" />
                 </div>
             </div>
             <div class='col'>
                 <div class="separator" />
                 <div>
-                    <Fact title='Color' :fact="['Colour','simba','boba']"/>
-                    <Fact title='Diet' fact='Diet' />
-                    <Fact title='Gestation Period' fact='Gestation Period' />
-                    <Fact title='Habitat' fact='Habitat' />
-                    <Fact title='Length' fact='Length' />
-                    <Fact title='Weight' fact='Wheight' />
-                    <Fact title='Life Span' fact='Lifespan' />
-                    <Fact title='Skin Type' fact='Skin Type' />
-                    <Fact title='Wingspan' fact='Wingspan' />      
+                    <Fact title="Location" :fact="animal.livesIn" link="/animals?location=" />
+                    <Fact title='Color' :fact="animal.colour"/>
+                    <Fact title='Diet' :fact='animal.diet' />
+                    <Fact title='Gestation Period' :fact='animal.gestationPeriod' />
+                    <Fact title='Habitat' :fact='animal.habitat' />
+                    <Fact title='Length' :fact='animal.length' />
+                    <Fact title='Weight' :fact='animal.wheight' />
+                    <Fact title='Life Span' :fact='animal.lifeSpan' />
+                    <Fact title='Skin Type' :fact='animal.skinType' />
+                    <Fact title='Wingspan' :fact='animal.wingSpan' />
+                    <Fact title="Preys" :fact="animal.hasPrey" link="/animal/" />
+                    <Fact title="Predators" :fact="animal.hasPredator" link="/animal/" />
                 </div>
             </div>
         </div>
@@ -50,17 +53,42 @@
 <script>
     import Navbar from '../components/Navbar.vue'
     import Fact from '../components/Fact.vue'
+    import axios from 'axios'
     
     export default {
         name: 'Animal',
         data () {
             return {
-            animal: {name: 'Dog', img:'https://i.imgur.com/ThWoXl7.jpg', funfact: "With the new v-slot syntax, nested activators such as those seen with a v-menu and v-tooltip attached to the same activator button, need a particular setup in order to function correctly."}
+            animal: {name: 'Dog', img:'https://i.imgur.com/ThWoXl7.jpg', funfact: "With the new v-slot syntax, nested activators such as those seen with a v-menu and v-tooltip attached to the same activator button, need a particular setup in order to function correctly."},
+            animal_id: ""
             }
         },
         components: {
             Navbar,
             Fact,
+        },
+        mounted () {
+            axios.get('http://localhost:7777/animals/' + this.$route.params.id)
+            .then(dados => {
+                this.animal=dados.data
+                this.animal_id=this.$route.params.id
+            })
+            .catch(err => console.log(err))
+        },
+        watch: {
+            "$route.params": {
+            immediate: true,
+                handler(n) {
+                    this.animal_id = n.id
+                    axios.get('http://localhost:7777/animals/' + n.id)
+                    .then(dados => {
+                        console.log('HERE')
+                        console.log(dados.data)
+                        this.animal = dados.data
+                    })
+                    .catch(err => console.log(err))
+                }
+            },
         }
     }
 

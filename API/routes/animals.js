@@ -30,11 +30,11 @@ router.get('/types', function(req, res){
 router.get('/', async function(req, res, next) {
     let type = req.query.type
     let location = req.query.location
-    let kingdom = req.query.kingdom
-    let genus = req.query.genus
-    let family = req.query.family
-    let order = req.query.order
-    let phylum = req.query.phylum
+    let kingdom = req.query.Kingdom
+    let genus = req.query.Genus
+    let family = req.query.Family
+    let order = req.query.Order
+    let phylum = req.query.Phylum
 
     Animals.getAnimals(type, location, kingdom, genus, family, order, phylum)
         .then(dados => {
