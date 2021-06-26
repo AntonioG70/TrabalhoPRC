@@ -82,4 +82,16 @@ router.get('/:animal', function(req, res){
         .catch(err => res.status(500).jsonp(err))  
 })
 
+router.put('/:animal', function(req, res){
+    Animals.editAnimal(req.params.animal, req.body.type, req.body.edit)
+        .then(dados => {
+            let types = dados.data.results.bindings
+            types = types.map(elem => {
+                return graphdb.pair2Value(elem.t)
+            })
+            res.status(200).jsonp(types)
+        })
+        .catch(err => res.status(500).jsonp(err))    
+})
+
 module.exports = router;
