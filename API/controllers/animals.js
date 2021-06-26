@@ -24,7 +24,7 @@ module.exports.getAnimals = (type, location, kingdom, genus, family, order, phyl
     if (phylum)
         linephylum = ':hasPhylum :' + phylum + ' ;\n'
 
-    let query = `SELECT ?a WHERE {
+    let query = `SELECT ?a ?img WHERE {
                 ?a rdf:type :Animal ;
                 ` + linetype + `
                 ` + linelocation + `
@@ -33,6 +33,7 @@ module.exports.getAnimals = (type, location, kingdom, genus, family, order, phyl
                 ` + linefamily + `
                 ` + lineorder + `
                 ` + linephylum + `
+                :image ?img.
             }`
 
     return graphdb.execQuery(query)

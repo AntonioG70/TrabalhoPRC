@@ -40,7 +40,10 @@ router.get('/', async function(req, res, next) {
         .then(dados => {
             let animals = dados.data.results.bindings
             animals = animals.map(elem => {
-                return graphdb.pair2Value(elem.a)
+                return {
+                    name: graphdb.pair2Value(elem.a),
+                    img: graphdb.pair2Value(elem.img)
+                }
             })
             res.status(200).jsonp(animals)
         })
@@ -64,7 +67,7 @@ router.get('/:animal', function(req, res){
                         animalInfo[data.p].push(data.o)
                     }
                     else {
-                        array = []
+                        let array = []
                         array.push(animalInfo[data.p])
                         array.push(data.o)
                         animalInfo[data.p] = array
