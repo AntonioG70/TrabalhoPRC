@@ -1,7 +1,7 @@
 <template>
   <div >
     <Navbar />
-    <v-list class='animal-list'>
+    <v-list class='animal-list' v-if="animals.length > 0">
         <v-list-item
             v-for="animal in animals"
             :key="animal.name"
@@ -13,31 +13,62 @@
                     <img :src='animal.img' :alt='animal.text' class="animal-img"/>
                     <div class="animal-name text-md-body-1">
                         <v-icon left color="light-gray">mdi-arrow-top-right</v-icon>
-                        {{animal.name}}
+                        {{animal.name.split('-').map(s => s[0].toUpperCase() + s.slice(1)).join(' ') /* Remove hifens and capitalize */ }}
                     </div>
                 </div>
              </router-link>
         </v-list-item>
     </v-list>
+    <div class='animal-list' v-else>
+        Loading...
+    </div>
   </div>
 </template>
 
 <script>
     import Navbar from '../components/Navbar.vue'
+    import axios from 'axios'
     
     export default {
         name: 'Animals',
         data () {
             return {
-            animals: [{name: 'Dog', img:'https://i.imgur.com/ThWoXl7.jpg'},
-                      {name: 'Cat', img:'https://i.imgur.com/Q6pAkWl.png'},
-                      {name: 'Hamster', img:'https://i.imgur.com/xBntSnV.jpeg'},
-                      {name: 'Elephant', img:'https://i.imgur.com/L3B21wl.jpeg'},
-                      {name: 'Cat', img:'https://i.imgur.com/Q6pAkWl.png'},]
+            animals: [],
+            query_string: ""
             }
         },
         components: {
             Navbar,
+        },
+        mounted () {
+            console.log(this.query_string)
+            axios.get('http://localhost:7777/animals' + this.query_string)
+            .then(dados => {
+                this.animals=dados.data
+            })
+            .catch(err => console.log(err))
+        },
+        watch: {
+            "$route.fullPath": {
+            immediate: true,
+                handler(n) {
+                    let markIndex = n.indexOf('?')
+                    let query_string = ""
+                    if(markIndex > 0) query_string = n.slice(markIndex)
+                    this.query_string = query_string
+                }
+            },
+            "query_string":{
+                immediate: true,
+                handler(n) {
+                    console.log(n)
+                    axios.get('http://localhost:7777/animals' + n)
+                    .then(dados => {
+                        this.animals=dados.data
+                    })
+                    .catch(err => console.log(err))
+                }   
+            }
         }
     }
 

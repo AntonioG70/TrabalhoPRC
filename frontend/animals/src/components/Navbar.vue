@@ -27,11 +27,12 @@
         props: ['links','title'],
         data () {
             return {
-                animalTypes: [{ text: 'Mammals', route: '/animals?type=Mammals' },
+                animalTypes: [{ text: 'Mammal', route: '/animals?type=Mammal' },
                               { text: 'Fish', route: '/animals?type=Fish' },
-                              { text: 'Reptiles', route: '/animals?type=Reptiles' },
-                              { text: 'Insects', route: '/animals?type=Insects' },
-                              { text: 'Birds', route: '/animals?type=Birds' },],
+                              { text: 'Reptile', route: '/animals?type=Reptile' },
+                              { text: 'Insect', route: '/animals?type=Insect' },
+                              { text: 'Bird', route: '/animals?type=Bird' },
+                              { text: 'All', route: '/animals' },],
                 locations: [{ text: 'Africa', route: '/animals?location=Africa' },
                             { text: 'Europe', route: '/animals?location=Europe' },
                             { text: 'America', route: '/animals?location=America' },

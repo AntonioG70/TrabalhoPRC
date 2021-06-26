@@ -11,6 +11,8 @@ var { v4: uuidv4 } = require('uuid');
 var session = require('express-session')
 var FileStore = require('session-file-store')(session)
 
+var cors = require('cors');
+
 var User = require('./controllers/users')
 
 
@@ -18,6 +20,7 @@ var User = require('./controllers/users')
 
 var animalsRouter = require('./routes/animals');
 var usersRouter = require('./routes/users');
+
 
 passport.use(new LocalStrategy(
   { usernameField: 'id' }, function (id, password, done) {
@@ -58,6 +61,7 @@ passport.deserializeUser((uid, done) => {
 
 var app = express();
 
+app.use(cors());
 
 app.use(session({
   genid: req => {
@@ -79,7 +83,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(function (req, res, next) {
-  if (req.url == "/users/login" || req.url == "/users/register"){
+  if (req.url == "/users/login" || req.url == "/users/register" || req.method == 'GET'){
     next()
   } 
   else if (req.isAuthenticated()) {
