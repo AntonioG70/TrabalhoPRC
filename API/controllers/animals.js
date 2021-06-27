@@ -79,7 +79,7 @@ module.exports.getTypes = () => {
 module.exports.editAnimal = (animal,type,edit) => {
 
     let query = `DELETE {:${animal} :${type} ?e}
-                INSERT {:${animal} :${type} ${edit} .
+                INSERT {:${animal} :${type} "${edit}" .
                 }
                 WHERE  { 
                         :${animal} :${type} ?e
