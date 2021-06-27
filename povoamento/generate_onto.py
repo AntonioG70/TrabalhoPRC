@@ -52,7 +52,7 @@ dp = []
 
 op.append(('hasKingdom','Kingdom'))
 op.append(('hasPhylum','Phylum'))
-op.append(('hasClasse','Classe'))
+op.append(('hasClasse','Class'))
 op.append(('hasOrder','Order'))
 op.append(('hasFamily','Family'))
 op.append(('hasGenus','Genus'))

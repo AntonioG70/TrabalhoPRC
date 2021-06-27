@@ -28,15 +28,18 @@ router.get('/types', function(req, res){
 })
 
 router.get('/', async function(req, res, next) {
+    let classification = {}
     let type = req.query.type
     let location = req.query.location
-    let kingdom = req.query.Kingdom
-    let genus = req.query.Genus
-    let family = req.query.Family
-    let order = req.query.Order
-    let phylum = req.query.Phylum
+    classification["kingdom"] = req.query.Kingdom
+    classification["genus"] = req.query.Genus
+    classification["classe"] = req.query.Classe
+    classification["family"] = req.query.Family
+    classification["order"] = req.query.Order
+    classification["phylum"] = req.query.Phylum
+    classification["general"] = req.query.classification
 
-    Animals.getAnimals(type, location, kingdom, genus, family, order, phylum)
+    Animals.getAnimals(type, location, classification)
         .then(dados => {
             let animals = dados.data.results.bindings
             animals = animals.map(elem => {

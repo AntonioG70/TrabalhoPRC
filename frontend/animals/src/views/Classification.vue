@@ -24,12 +24,13 @@
 
 <script>
     import Navbar from '../components/Navbar.vue'
+    import axios from 'axios'
     
     export default {
         name: 'Classifications',
         data () {
             return {
-            classifications: ["pamba","pemba","pimba","pomba","pumba"],
+            classifications: [],
             classification: this.$route.params.id
             }
         },
@@ -41,6 +42,11 @@
             immediate: true,
                 handler(n) {
                     this.classification = n.id
+                    axios.get('http://localhost:7777/classifications/' + n.id)
+                    .then(dados => {
+                        this.classifications=dados.data
+                    })
+                    .catch(err => console.log(err))
                 }
             }
         }

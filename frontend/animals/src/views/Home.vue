@@ -46,7 +46,7 @@
                             { text: 'Oceania', route: '/animals?location=Oceania' },],
                 classifications: [{ text: 'Kingdom', route: '/classification/Kingdom' },
                                   { text: 'Phylum', route: '/classification/Phylum' },
-                                  { text: 'Class', route: '/classification/Class' },
+                                  { text: 'Class', route: '/classification/Classe' },
                                   { text: 'Order', route: '/classification/Order' },
                                   { text: 'Genus', route: '/classification/Genus' },
                                   { text: 'Family', route: '/classification/Family' },]

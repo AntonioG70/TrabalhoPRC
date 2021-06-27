@@ -1,6 +1,7 @@
 var graphdb = require('../utils/graphdb')
 
-module.exports.getAnimals = (type, location, kingdom, genus, family, order, phylum) => {
+module.exports.getAnimals = (type, location, classification) => {
+    let { general, kingdom, genus, family, order, phylum, classe } = classification
     let linetype = ""
     let linelocation = ""
     let linekingdom = ""
@@ -8,6 +9,8 @@ module.exports.getAnimals = (type, location, kingdom, genus, family, order, phyl
     let linefamily = ""
     let lineorder = ""
     let linephylum = ""
+    let lineclasse = ""
+    let linegeneral = ""
 
     if (type)
         linetype = 'rdf:type :' + type + ' ;\n'
@@ -23,6 +26,10 @@ module.exports.getAnimals = (type, location, kingdom, genus, family, order, phyl
         lineorder = ':hasOrder :' + order + ' ;\n' 
     if (phylum)
         linephylum = ':hasPhylum :' + phylum + ' ;\n'
+    if (classe)
+        lineclasse = ':hasClasse :' + classe + ' ;\n'
+    if (general)
+        linegeneral = ':hasClassification :' + general + ' ;\n'
 
     let query = `SELECT ?a ?img WHERE {
                 ?a rdf:type :Animal ;
@@ -33,6 +40,8 @@ module.exports.getAnimals = (type, location, kingdom, genus, family, order, phyl
                 ` + linefamily + `
                 ` + lineorder + `
                 ` + linephylum + `
+                ` + lineclasse + `
+                ` + linegeneral + `
                 :image ?img.
             }`
 
