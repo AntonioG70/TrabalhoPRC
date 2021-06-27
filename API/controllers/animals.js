@@ -79,14 +79,14 @@ module.exports.getTypes = () => {
 module.exports.editAnimal = (animal,type,edit) => {
 
     let query = `DELETE {:${animal} :${type} ?e}
-                INSERT {:${animal} :${type} "${edit}" .
+                INSERT DATA {:${animal} :${type} "${edit}" .
                 }
                 WHERE  { 
                         :${animal} :${type} ?e
                         :${animal} rdf:type :Animal . 
     }`
 
-    return graphdb.execQuery(query)
+    return graphdb.execTransaction(query)
                 
 }
 
