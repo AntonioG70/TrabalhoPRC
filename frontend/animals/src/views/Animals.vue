@@ -1,7 +1,7 @@
 <template>
   <div >
     <Navbar />
-    <v-list class='animal-list' v-if="animals.length > 0">
+    <v-list class='animal-list' v-if="animals != null && animals.length > 0">
         <v-list-item
             v-for="animal in animals"
             :key="animal.name"
@@ -19,8 +19,13 @@
              </router-link>
         </v-list-item>
     </v-list>
-    <div class='animal-list' v-else>
-        Loading...
+    <div class='animal-list info-result' v-else>
+        <div v-if="animals == null">
+            Loading...
+        </div>
+        <div v-else>
+            No animals found...
+        </div>
     </div>
   </div>
 </template>
@@ -33,20 +38,12 @@
         name: 'Animals',
         data () {
             return {
-            animals: [],
+            animals: null,
             query_string: ""
             }
         },
         components: {
             Navbar,
-        },
-        mounted () {
-            console.log(this.query_string)
-            axios.get('http://localhost:7777/animals' + this.query_string)
-            .then(dados => {
-                this.animals=dados.data
-            })
-            .catch(err => console.log(err))
         },
         watch: {
             "$route.fullPath": {
@@ -56,15 +53,22 @@
                     let query_string = ""
                     if(markIndex > 0) query_string = n.slice(markIndex)
                     this.query_string = query_string
+                    this.animals = null
                 }
             },
             "query_string":{
                 immediate: true,
                 handler(n) {
-                    console.log(n)
                     axios.get('http://localhost:7777/animals' + n)
                     .then(dados => {
-                        this.animals=dados.data
+                        if(this.$route.query.name){
+                            dados.data = dados.data.filter(elem => {
+                                let nome = elem.name.split('-').map(s => s[0].toUpperCase() + s.slice(1)).join(' ')
+                                let regex = new RegExp(this.$route.query.name.toLowerCase())
+                                return regex.test(nome.toLowerCase())
+                            })
+                        }
+                        this.animals= dados.data
                     })
                     .catch(err => console.log(err))
                 }   
@@ -113,5 +117,10 @@
         display: flex;
         align-items: center;
         margin-left: 20px;
+    }
+
+    .info-result {
+        font-size: 32px;
+        margin-top: 50px;
     }
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <div >
+<div>
     <Navbar />
-    <div class="page">
+    <div class="page" v-if="loading == false && animal.hasKingdom != null">
         <div class="animal-header">
             <div class="separator" />
             <img :src='animal.image' :alt='animal_id' class="animal-img"/>
@@ -21,7 +21,7 @@
                 <div class="facts-list">
                     <Fact title="Kingdom" :fact="animal.hasKingdom" link="/animals?Kingdom="/>
                     <Fact title="Phylum" :fact="animal.hasPhylum" link="/animals?Phylum="/>
-                    <Fact title="Class" :fact="animal.hasClass" link="/animals?Class="/>
+                    <Fact title="Class" :fact="animal.hasClasse" link="/animals?Classe="/>
                     <Fact title="Order" :fact="animal.hasOrder" link="/animals?Order="/>
                     <Fact title="Genus" :fact="animal.hasGenus" link="/animals?Genus="/>
                     <Fact title="Family" :fact="animal.hasFamily" link="/animals?Family="/>
@@ -46,8 +46,25 @@
                 </div>
             </div>
         </div>
+        <div class="map-box">
+            <div class="separator" />
+            <div>
+                <div class="map-title"> World Location: </div>
+                <div class="map-content">
+                    <img :src="animal.locationImage" alt=Map class="map" v-if="animal.locationImage"/>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+    <div class="page info-result" v-else>
+        <div v-if="loading == true">
+            Loading...
+        </div>
+        <div v-else>
+            Animal not found...
+        </div>
+    </div>
+</div>
 </template>
 
 <script>
@@ -59,8 +76,10 @@
         name: 'Animal',
         data () {
             return {
-            animal: {name: 'Dog', img:'https://i.imgur.com/ThWoXl7.jpg', funfact: "With the new v-slot syntax, nested activators such as those seen with a v-menu and v-tooltip attached to the same activator button, need a particular setup in order to function correctly."},
-            animal_id: ""
+                animal: null,
+                animal_id: "",
+                loading: true,
+                error: false
             }
         },
         components: {
@@ -70,10 +89,13 @@
         mounted () {
             axios.get('http://localhost:7777/animals/' + this.$route.params.id)
             .then(dados => {
-                this.animal=dados.data
+                if(dados.data == {})
+                    this.error = true;
+                this.animal = dados.data
                 this.animal_id=this.$route.params.id
+                this.loading = false
             })
-            .catch(err => console.log(err))
+            .catch(err => { this.loading = false; console.log(err); } )
         },
         watch: {
             "$route.params": {
@@ -82,11 +104,12 @@
                     this.animal_id = n.id
                     axios.get('http://localhost:7777/animals/' + n.id)
                     .then(dados => {
-                        console.log('HERE')
-                        console.log(dados.data)
+                        if(dados.data == {})
+                            this.error = true;
                         this.animal = dados.data
+                        this.loading = false
                     })
-                    .catch(err => console.log(err))
+                    .catch(err => { this.loading = false; console.log(err); } )
                 }
             },
         }
@@ -154,4 +177,39 @@
         display: flex;
         flex-direction: column;
     }
+
+    .map-box {
+        display: flex;
+        background-color: rgb(243, 243, 243);
+        width: 60vw;
+        margin-bottom: 70px;
+        height: 500px;
+    }
+    
+    .map-title {
+        display: flex;
+        align-items: center;
+        height: 12%;
+        margin: 0 20px;
+        font-size:24px;
+    }
+
+    .map-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width:59.5vw;
+        height:88%;
+    }
+
+    .map {
+        border-radius: 50%;
+        padding-bottom: 20px;
+    }
+
+    .info-result {
+        font-size: 32px;
+        margin-top: 50px;
+    }
+
 </style>

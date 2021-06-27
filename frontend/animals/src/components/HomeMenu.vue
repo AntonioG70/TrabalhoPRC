@@ -1,7 +1,7 @@
 <template>
     <v-menu offset-y top>
                 <template v-slot:activator="{ on, attrs }">
-                    <v-btn flat v-bind="attrs" v-on="on">
+                    <v-btn v-bind="attrs" v-on="on">
                         <v-icon left color="black">mdi-plus</v-icon>
                         <span>{{ title }}</span>
                     </v-btn>
