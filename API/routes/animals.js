@@ -86,10 +86,17 @@ router.get('/:animal', function(req, res){
 })
 
 router.put('/:animal', function(req, res){
-    console.log('siga la')
     Animals.editAnimal(req.params.animal, req.body.type, req.body.edit)
         .then(dados => {
             res.status(200).jsonp('Changed!')
+        })
+        .catch(err => res.status(500).jsonp(err))    
+})
+
+router.delete('/:animal', function(req, res){
+    Animals.deleteAnimal(req.params.animal)
+        .then(dados => {
+            res.status(200).jsonp('Deleted!')
         })
         .catch(err => res.status(500).jsonp(err))    
 })

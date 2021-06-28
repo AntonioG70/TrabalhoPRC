@@ -90,6 +90,19 @@ module.exports.editAnimal = (animal,type,edit) => {
                 
 }
 
+module.exports.deleteAnimal = (animal) => {
+
+    let query = `DELETE {:${animal} ?p ?o .
+                        ?p1 ?o1 :${animal}.
+                    }
+                WHERE  { 
+                        :${animal} ?p ?o . 
+                        ?p1 ?o1 :${animal}. 
+    }`
+
+    return graphdb.execTransaction(query)
+                
+}
 
 
 
