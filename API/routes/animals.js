@@ -86,13 +86,10 @@ router.get('/:animal', function(req, res){
 })
 
 router.put('/:animal', function(req, res){
+    console.log('siga la')
     Animals.editAnimal(req.params.animal, req.body.type, req.body.edit)
         .then(dados => {
-            let types = dados.data.results.bindings
-            types = types.map(elem => {
-                return graphdb.pair2Value(elem.t)
-            })
-            res.status(200).jsonp(types)
+            res.status(200).jsonp('Changed!')
         })
         .catch(err => res.status(500).jsonp(err))    
 })
