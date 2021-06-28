@@ -46,12 +46,12 @@
                 </div>
             </div>
         </div>
-        <div class="map-box">
+        <div class="map-box" v-if="animal.locationImage && ! mapError">
             <div class="separator" />
             <div>
                 <div class="map-title"> World Location: </div>
                 <div class="map-content">
-                    <img :src="animal.locationImage" alt=Map class="map" v-if="animal.locationImage"/>
+                    <img :src="animal.locationImage" alt=Map class="map" @error="mapError = true" @load="mapError = false"/>
                 </div>
             </div>
         </div>
@@ -79,7 +79,7 @@
                 animal: null,
                 animal_id: "",
                 loading: true,
-                error: false
+                mapError: false,
             }
         },
         components: {
@@ -94,6 +94,7 @@
                 this.animal = dados.data
                 this.animal_id=this.$route.params.id
                 this.loading = false
+                this.mapError=false
             })
             .catch(err => { this.loading = false; console.log(err); } )
         },
@@ -101,6 +102,7 @@
             "$route.params": {
             immediate: true,
                 handler(n) {
+                    this.mapError=true
                     this.animal_id = n.id
                     axios.get('http://localhost:7777/animals/' + n.id)
                     .then(dados => {
@@ -108,6 +110,7 @@
                             this.error = true;
                         this.animal = dados.data
                         this.loading = false
+                        this.mapError=false
                     })
                     .catch(err => { this.loading = false; console.log(err); } )
                 }
